@@ -1,0 +1,984 @@
+openapi: 3.0.3
+info:
+  title: SkillsBridge Local Demo and Reference API
+  version: 1.1.0
+  description: Local teaching prototype. Synthetic data only. HttpOnly session
+    cookie is issued automatically; roles are openly selectable teaching
+    controls, not authentication. Logical time in milliseconds. Sessions
+    ephemeral.
+servers:
+  - url: http://localhost:3000
+paths:
+  /api/taxonomy:
+    get:
+      description: Read one fixed ESCO reference. Default fixture is offline. live
+        attempts a bounded external read, caches for 60s and reports fallback
+        explicitly. No input text, URL or employee data accepted.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mode:
+                    type: string
+                    enum:
+                      - fixture
+                      - live
+                      - cached
+                      - fallback
+                  provider:
+                    type: string
+                    enum:
+                      - European Commission ESCO
+                  uri:
+                    type: string
+                    enum:
+                      - http://data.europa.eu/esco/skill/744442ac-c157-4350-8be0-ce454df4f5c5
+                  label:
+                    type: string
+                    minLength: 1
+                    maxLength: 200
+                  language:
+                    type: string
+                    enum:
+                      - en
+                  requestedVersion:
+                    type: string
+                    enum:
+                      - v1.2.0
+                  effectiveVersionConfirmed:
+                    type: boolean
+                    enum:
+                      - false
+                  retrievedAt:
+                    type: string
+                    format: date-time
+                    pattern: ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z|([+-](?:[01]\d|2[0-3]):[0-5]\d)))$
+                  checkedAt:
+                    nullable: true
+                    type: string
+                    format: date-time
+                    pattern: ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z|([+-](?:[01]\d|2[0-3]):[0-5]\d)))$
+                  sourceUrl:
+                    type: string
+                    enum:
+                      - https://ec.europa.eu/esco/api/resource/skill?uri=http%3A%2F%2Fdata.europa.eu%2Fesco%2Fskill%2F744442ac-c157-4350-8be0-ce454df4f5c5&language=en&selectedVersion=v1.2.0
+                  reason:
+                    nullable: true
+                    type: string
+                  mappingStatus:
+                    type: string
+                    enum:
+                      - reference-only
+                required:
+                  - mode
+                  - provider
+                  - uri
+                  - label
+                  - language
+                  - requestedVersion
+                  - effectiveVersionConfirmed
+                  - retrievedAt
+                  - checkedAt
+                  - sourceUrl
+                  - reason
+                  - mappingStatus
+                additionalProperties: false
+        "400": &a1
+          description: Consistent simulator error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403": &a2
+          description: Consistent simulator error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404": &a3
+          description: Consistent simulator error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "409": &a4
+          description: Consistent simulator error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "413": &a5
+          description: Consistent simulator error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "429": &a6
+          description: Consistent simulator error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500": &a7
+          description: Consistent simulator error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "503": &a8
+          description: Consistent simulator error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      parameters:
+        - name: mode
+          in: query
+          schema:
+            type: string
+            enum:
+              - fixture
+              - live
+            default: fixture
+  /api/state:
+    get:
+      description: Read the current isolated demo session; sets sb_session cookie.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/State"
+        "400": *a1
+        "403": *a2
+        "404": *a3
+        "409": *a4
+        "413": *a5
+        "429": *a6
+        "500": *a7
+        "503": *a8
+  /api/commands:
+    post:
+      description: Execute a strict typed command. run creates fixture evidence;
+        approve/reject require current revision. role deliberately changes demo
+        role. advance drives logical retry eligibility.
+      parameters:
+        - name: Origin
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Must match server origin. Required for all mutations.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Command"
+      responses:
+        "200":
+          description: Updated session state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/State"
+        "400": *a1
+        "403": *a2
+        "404": *a3
+        "409": *a4
+        "413": *a5
+        "429": *a6
+        "500": *a7
+        "503": *a8
+  /api/simulations/run:
+    post:
+      description: Import named deterministic fixture.
+      parameters:
+        - name: Origin
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Must match server origin. Required for all mutations.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required:
+                - scenario
+              properties:
+                scenario:
+                  type: string
+                  enum:
+                    - happy
+                    - duplicate
+                    - rate-limit
+                    - missing-identity
+                    - low-confidence
+                    - unavailable
+                    - taxonomy
+                    - unauthorized
+                    - stale
+      responses:
+        "200":
+          description: Updated session state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/State"
+        "400": *a1
+        "403": *a2
+        "404": *a3
+        "409": *a4
+        "413": *a5
+        "429": *a6
+        "500": *a7
+        "503": *a8
+  /api/simulations/reset:
+    post:
+      description: Admin clears the current demo session.
+      parameters:
+        - name: Origin
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Must match server origin. Required for all mutations.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+      responses:
+        "200":
+          description: Updated session state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/State"
+        "400": *a1
+        "403": *a2
+        "404": *a3
+        "409": *a4
+        "413": *a5
+        "429": *a6
+        "500": *a7
+        "503": *a8
+  /api/sync:
+    post:
+      description: Admin synchronizes eligible approved revisions.
+      parameters:
+        - name: Origin
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Must match server origin. Required for all mutations.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+      responses:
+        "200":
+          description: Updated session state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/State"
+        "400": *a1
+        "403": *a2
+        "404": *a3
+        "409": *a4
+        "413": *a5
+        "429": *a6
+        "500": *a7
+        "503": *a8
+  /api/events:
+    get:
+      description: Selected fictional source events.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Event"
+        "400": *a1
+        "403": *a2
+        "404": *a3
+        "409": *a4
+        "413": *a5
+        "429": *a6
+        "500": *a7
+        "503": *a8
+  /api/skill-suggestions:
+    get:
+      description: Current skill suggestions.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Suggestion"
+        "400": *a1
+        "403": *a2
+        "404": *a3
+        "409": *a4
+        "413": *a5
+        "429": *a6
+        "500": *a7
+        "503": *a8
+  /api/sync-runs:
+    get:
+      description: Attempt history.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    suggestion:
+                      type: string
+                    status:
+                      type: number
+                    attempt:
+                      type: number
+                    at:
+                      type: number
+                    nextRetry:
+                      nullable: true
+                      type: number
+                  required:
+                    - suggestion
+                    - status
+                    - attempt
+                    - at
+                    - nextRetry
+                  additionalProperties: false
+        "400": *a1
+        "403": *a2
+        "404": *a3
+        "409": *a4
+        "413": *a5
+        "429": *a6
+        "500": *a7
+        "503": *a8
+  /api/integrations:
+    get:
+      description: Two simulated integrations.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - id
+                    - name
+                    - simulated
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    simulated:
+                      type: boolean
+                      enum:
+                        - true
+                    status:
+                      type: string
+                      enum:
+                        - available
+                        - unavailable
+                        - rate-limited
+        "400": *a1
+        "403": *a2
+        "404": *a3
+        "409": *a4
+        "413": *a5
+        "429": *a6
+        "500": *a7
+        "503": *a8
+  /api/metrics:
+    get:
+      description: Snapshot measures; ratio values are null for empty denominators.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required:
+                  - received
+                  - unique
+                  - duplicatesPrevented
+                  - pendingReview
+                  - writes
+                  - syncSuccessRate
+                  - acceptanceRate
+                  - rejectionRate
+                  - mappingFailureRate
+                  - recoveryRate
+                  - evidenceCoverage
+                  - reviewRequiredRate
+                  - reviewed
+                  - attempts
+                properties:
+                  received:
+                    type: number
+                    nullable: false
+                  unique:
+                    type: number
+                    nullable: false
+                  duplicatesPrevented:
+                    type: number
+                    nullable: false
+                  pendingReview:
+                    type: number
+                    nullable: false
+                  writes:
+                    type: number
+                    nullable: false
+                  syncSuccessRate:
+                    type: number
+                    nullable: true
+                  acceptanceRate:
+                    type: number
+                    nullable: true
+                  rejectionRate:
+                    type: number
+                    nullable: true
+                  mappingFailureRate:
+                    type: number
+                    nullable: true
+                  recoveryRate:
+                    type: number
+                    nullable: true
+                  evidenceCoverage:
+                    type: number
+                    nullable: true
+                  reviewRequiredRate:
+                    type: number
+                    nullable: true
+                  reviewed:
+                    type: number
+                    nullable: false
+                  attempts:
+                    type: number
+                    nullable: false
+        "400": *a1
+        "403": *a2
+        "404": *a3
+        "409": *a4
+        "413": *a5
+        "429": *a6
+        "500": *a7
+        "503": *a8
+components:
+  schemas:
+    Command:
+      oneOf:
+        - type: object
+          properties:
+            action:
+              type: string
+              enum:
+                - run
+            scenario:
+              type: string
+              enum:
+                - happy
+                - duplicate
+                - rate-limit
+                - missing-identity
+                - low-confidence
+                - unavailable
+                - taxonomy
+                - unauthorized
+                - stale
+          required:
+            - action
+            - scenario
+          additionalProperties: false
+        - type: object
+          properties:
+            action:
+              type: string
+              enum:
+                - approve
+            id:
+              type: string
+            revision:
+              type: integer
+              minimum: 0
+              exclusiveMinimum: true
+              maximum: 9007199254740991
+          required:
+            - action
+            - id
+            - revision
+          additionalProperties: false
+        - type: object
+          properties:
+            action:
+              type: string
+              enum:
+                - reject
+            id:
+              type: string
+            revision:
+              type: integer
+              minimum: 0
+              exclusiveMinimum: true
+              maximum: 9007199254740991
+          required:
+            - action
+            - id
+            - revision
+          additionalProperties: false
+        - type: object
+          properties:
+            action:
+              type: string
+              enum:
+                - sync
+          required:
+            - action
+          additionalProperties: false
+        - type: object
+          properties:
+            action:
+              type: string
+              enum:
+                - recover
+          required:
+            - action
+          additionalProperties: false
+        - type: object
+          properties:
+            action:
+              type: string
+              enum:
+                - advance
+            seconds:
+              type: integer
+              minimum: 1
+              maximum: 60
+          required:
+            - action
+            - seconds
+          additionalProperties: false
+        - type: object
+          properties:
+            action:
+              type: string
+              enum:
+                - resolve-identity
+            id:
+              type: string
+          required:
+            - action
+            - id
+          additionalProperties: false
+        - type: object
+          properties:
+            action:
+              type: string
+              enum:
+                - role
+            role:
+              type: string
+              enum:
+                - viewer
+                - reviewer
+                - admin
+          required:
+            - action
+            - role
+          additionalProperties: false
+        - type: object
+          properties:
+            action:
+              type: string
+              enum:
+                - reset
+          required:
+            - action
+          additionalProperties: false
+    State:
+      type: object
+      properties:
+        scenario:
+          nullable: true
+          type: string
+          enum:
+            - happy
+            - duplicate
+            - rate-limit
+            - missing-identity
+            - low-confidence
+            - unavailable
+            - taxonomy
+            - unauthorized
+            - stale
+        role:
+          type: string
+          enum:
+            - viewer
+            - reviewer
+            - admin
+        clock:
+          type: number
+        deliveries:
+          type: number
+        duplicates:
+          type: number
+        events:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                minLength: 1
+                maxLength: 80
+              version:
+                type: integer
+                minimum: 0
+                exclusiveMinimum: true
+                maximum: 9007199254740991
+              sourceUser:
+                type: string
+                minLength: 1
+                maxLength: 80
+              title:
+                type: string
+                minLength: 1
+                maxLength: 200
+              resolution:
+                type: string
+                minLength: 1
+                maxLength: 500
+              category:
+                type: string
+                enum:
+                  - network
+                  - incident
+                  - unknown
+            required:
+              - id
+              - version
+              - sourceUser
+              - title
+              - resolution
+              - category
+            additionalProperties: false
+        suggestions:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              eventId:
+                type: string
+              revision:
+                type: integer
+                minimum: -9007199254740991
+                maximum: 9007199254740991
+              employee:
+                nullable: true
+                type: string
+              skill:
+                type: string
+              confidence:
+                type: number
+                minimum: 0
+                maximum: 1
+              evidence:
+                type: string
+              review:
+                type: string
+                enum:
+                  - pending
+                  - approved
+                  - rejected
+              approvedRevision:
+                nullable: true
+                type: number
+              sync:
+                type: string
+                enum:
+                  - pending
+                  - blocked
+                  - synced
+                  - failed
+              issue:
+                nullable: true
+                type: string
+              attempts:
+                type: integer
+                minimum: -9007199254740991
+                maximum: 9007199254740991
+              nextRetry:
+                type: number
+              recovered:
+                type: boolean
+            required:
+              - id
+              - eventId
+              - revision
+              - employee
+              - skill
+              - confidence
+              - evidence
+              - review
+              - approvedRevision
+              - sync
+              - issue
+              - attempts
+              - nextRetry
+              - recovered
+            additionalProperties: false
+        audit:
+          type: array
+          items:
+            type: object
+            properties:
+              seq:
+                type: integer
+                minimum: -9007199254740991
+                maximum: 9007199254740991
+              at:
+                type: number
+              type:
+                type: string
+              subject:
+                type: string
+              detail:
+                type: string
+              actor:
+                type: string
+                enum:
+                  - viewer
+                  - reviewer
+                  - admin
+            required:
+              - seq
+              - at
+              - type
+              - subject
+              - detail
+              - actor
+            additionalProperties: false
+        writes:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              employee:
+                type: string
+              skill:
+                type: string
+              revision:
+                type: number
+              at:
+                type: number
+            required:
+              - key
+              - employee
+              - skill
+              - revision
+              - at
+            additionalProperties: false
+        runs:
+          type: array
+          items:
+            type: object
+            properties:
+              suggestion:
+                type: string
+              status:
+                type: number
+              attempt:
+                type: number
+              at:
+                type: number
+              nextRetry:
+                nullable: true
+                type: number
+            required:
+              - suggestion
+              - status
+              - attempt
+              - at
+              - nextRetry
+            additionalProperties: false
+        destination:
+          type: string
+          enum:
+            - available
+            - unavailable
+            - rate-limited
+      required:
+        - scenario
+        - role
+        - clock
+        - deliveries
+        - duplicates
+        - events
+        - suggestions
+        - audit
+        - writes
+        - runs
+        - destination
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+          required:
+            - code
+            - message
+          additionalProperties: false
+      required:
+        - error
+      additionalProperties: false
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 80
+        version:
+          type: integer
+          minimum: 0
+          exclusiveMinimum: true
+          maximum: 9007199254740991
+        sourceUser:
+          type: string
+          minLength: 1
+          maxLength: 80
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        resolution:
+          type: string
+          minLength: 1
+          maxLength: 500
+        category:
+          type: string
+          enum:
+            - network
+            - incident
+            - unknown
+      required:
+        - id
+        - version
+        - sourceUser
+        - title
+        - resolution
+        - category
+      additionalProperties: false
+    Suggestion:
+      type: object
+      properties:
+        id:
+          type: string
+        eventId:
+          type: string
+        revision:
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        employee:
+          nullable: true
+          type: string
+        skill:
+          type: string
+        confidence:
+          type: number
+          minimum: 0
+          maximum: 1
+        evidence:
+          type: string
+        review:
+          type: string
+          enum:
+            - pending
+            - approved
+            - rejected
+        approvedRevision:
+          nullable: true
+          type: number
+        sync:
+          type: string
+          enum:
+            - pending
+            - blocked
+            - synced
+            - failed
+        issue:
+          nullable: true
+          type: string
+        attempts:
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        nextRetry:
+          type: number
+        recovered:
+          type: boolean
+      required:
+        - id
+        - eventId
+        - revision
+        - employee
+        - skill
+        - confidence
+        - evidence
+        - review
+        - approvedRevision
+        - sync
+        - issue
+        - attempts
+        - nextRetry
+        - recovered
+      additionalProperties: false

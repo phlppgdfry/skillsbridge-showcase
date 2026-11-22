@@ -1,0 +1,21 @@
+{
+  "observedAt": "2026-11-04T11:58:42.264Z",
+  "environment": "Local running application adapter; actual provider access",
+  "request": "GET /api/taxonomy?mode=live",
+  "response": {
+    "mode": "live",
+    "provider": "European Commission ESCO",
+    "uri": "http://data.europa.eu/esco/skill/744442ac-c157-4350-8be0-ce454df4f5c5",
+    "label": "perform ICT troubleshooting",
+    "language": "en",
+    "requestedVersion": "v1.2.0",
+    "effectiveVersionConfirmed": false,
+    "retrievedAt": "2026-11-04T11:58:42.234Z",
+    "checkedAt": "2026-11-04T11:58:42.234Z",
+    "sourceUrl": "https://ec.europa.eu/esco/api/resource/skill?uri=http%3A%2F%2Fdata.europa.eu%2Fesco%2Fskill%2F744442ac-c157-4350-8be0-ce454df4f5c5&language=en&selectedVersion=v1.2.0",
+    "reason": null,
+    "mappingStatus": "reference-only"
+  },
+  "simulatorStateUnchanged": true,
+  "enterpriseIntegrationVerified": false
+}

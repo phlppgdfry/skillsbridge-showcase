@@ -1,0 +1,148 @@
+{
+  "kind": "synthetic execution evidence",
+  "results": [
+    {
+      "scenario": "happy",
+      "metrics": {
+        "received": 1,
+        "unique": 1,
+        "duplicatesPrevented": 0,
+        "pendingReview": 0,
+        "writes": 1,
+        "syncSuccessRate": 100,
+        "acceptanceRate": 100,
+        "rejectionRate": 0,
+        "mappingFailureRate": 0,
+        "recoveryRate": null,
+        "evidenceCoverage": 100,
+        "reviewRequiredRate": 100,
+        "reviewed": 1,
+        "attempts": 1
+      },
+      "auditEvents": 6,
+      "writes": [
+        {
+          "key": "EMP-1042:HR-NET-01:INC-0001:1",
+          "employee": "EMP-1042",
+          "skill": "HR-NET-01",
+          "revision": 1,
+          "at": 0
+        }
+      ],
+      "attempts": [
+        {
+          "suggestion": "SG-001",
+          "status": 200,
+          "attempt": 1,
+          "at": 0,
+          "nextRetry": null
+        }
+      ]
+    },
+    {
+      "scenario": "duplicate",
+      "metrics": {
+        "received": 2,
+        "unique": 1,
+        "duplicatesPrevented": 1,
+        "pendingReview": 0,
+        "writes": 1,
+        "syncSuccessRate": 100,
+        "acceptanceRate": 100,
+        "rejectionRate": 0,
+        "mappingFailureRate": 0,
+        "recoveryRate": null,
+        "evidenceCoverage": 100,
+        "reviewRequiredRate": 100,
+        "reviewed": 1,
+        "attempts": 1
+      },
+      "auditEvents": 7,
+      "writes": [
+        {
+          "key": "EMP-1042:HR-NET-01:INC-0001:1",
+          "employee": "EMP-1042",
+          "skill": "HR-NET-01",
+          "revision": 1,
+          "at": 0
+        }
+      ],
+      "attempts": [
+        {
+          "suggestion": "SG-001",
+          "status": 200,
+          "attempt": 1,
+          "at": 0,
+          "nextRetry": null
+        }
+      ]
+    },
+    {
+      "scenario": "unavailable",
+      "metrics": {
+        "received": 1,
+        "unique": 1,
+        "duplicatesPrevented": 0,
+        "pendingReview": 0,
+        "writes": 1,
+        "syncSuccessRate": 50,
+        "acceptanceRate": 100,
+        "rejectionRate": 0,
+        "mappingFailureRate": 0,
+        "recoveryRate": 100,
+        "evidenceCoverage": 100,
+        "reviewRequiredRate": 100,
+        "reviewed": 1,
+        "attempts": 2
+      },
+      "auditEvents": 9,
+      "writes": [
+        {
+          "key": "EMP-1042:HR-NET-01:INC-0001:1",
+          "employee": "EMP-1042",
+          "skill": "HR-NET-01",
+          "revision": 1,
+          "at": 10000
+        }
+      ],
+      "attempts": [
+        {
+          "suggestion": "SG-001",
+          "status": 503,
+          "attempt": 1,
+          "at": 0,
+          "nextRetry": 1000
+        },
+        {
+          "suggestion": "SG-001",
+          "status": 200,
+          "attempt": 2,
+          "at": 10000,
+          "nextRetry": null
+        }
+      ]
+    },
+    {
+      "scenario": "low-confidence",
+      "metrics": {
+        "received": 1,
+        "unique": 1,
+        "duplicatesPrevented": 0,
+        "pendingReview": 0,
+        "writes": 0,
+        "syncSuccessRate": null,
+        "acceptanceRate": 0,
+        "rejectionRate": 100,
+        "mappingFailureRate": 0,
+        "recoveryRate": null,
+        "evidenceCoverage": 100,
+        "reviewRequiredRate": 100,
+        "reviewed": 1,
+        "attempts": 0
+      },
+      "auditEvents": 5,
+      "writes": [],
+      "attempts": []
+    }
+  ]
+}

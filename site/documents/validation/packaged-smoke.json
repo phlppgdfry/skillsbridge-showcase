@@ -1,0 +1,21 @@
+{
+  "environment": "local packaged Worker via Wrangler",
+  "status": "passed",
+  "checks": [
+    "HTML response",
+    "session cookie",
+    "pending suggestion",
+    "approval",
+    "synchronization",
+    "no repeated write",
+    "offline external-reference contract",
+    "loaded CSS/JS and hydrated primary action",
+    "published evidence navigation",
+    "anonymous test receipt and security headers",
+    "private documents, raw reports and build metadata return 404",
+    "390px mobile overflow and console checks"
+  ],
+  "destinationWrites": 1,
+  "attemptCount": 1,
+  "hostedDeploymentVerified": false
+}
