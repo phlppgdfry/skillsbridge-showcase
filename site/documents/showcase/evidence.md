@@ -1,4 +1,6 @@
 # Evidence you can inspect
+
+**Public runtime:** The [GitHub Pages edition](https://phlppgdfry.github.io/skillsbridge-showcase/) executes the shared engine in per-tab browser memory, with recorded taxonomy fallback. Server/API receipts below describe the separately tested prototype; this site runs no Worker backend. [Read the exact public scope](github-pages-demo.md).
 SkillsBridge is an independent enterprise product management and integration case study built using synthetic data and simulated enterprise integrations. AI assistance contributed research synthesis, writing, implementation and tests. Project outputs do not establish professional experience or independent candidate mastery.
 
 ## What works — and what that proves

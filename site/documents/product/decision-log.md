@@ -97,7 +97,9 @@ All decisions belong to an independent, AI-assisted portfolio case. Inputs are p
 
 **Alternatives:** Browser-only state; local server sessions; persistent database.
 
-**Decision:** Bounded server sessions; keep publication pending authorization.
+**Decision:** Bounded server sessions for the API prototype; publication originally pending authorization.
+
+**Update — 23 November 2026:** The owner authorized a separate public GitHub Pages showcase. It reuses the engine with per-tab browser memory and recorded taxonomy fallback, while the Worker/API prototype remains separate. The development repository/history remain private; a fresh-history artifact repository publishes only reviewed files. This changes the demonstration transport, not pilot security or durability requirements. [Distribution scope](../showcase/github-pages-demo.md).
 
 **Rationale:** Exercise real API transitions with session isolation and minimal setup.
 

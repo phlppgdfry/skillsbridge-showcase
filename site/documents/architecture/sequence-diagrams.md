@@ -60,8 +60,10 @@ flowchart LR
   Browser[Browser / session cookie] --> Local[Local Vinext / Vite server]
   Local --> Runtime[API + in-memory state]
   Source[Repository + CI configuration] --> Build[Worker-compatible build]
-  Build -. Approval and deployment validation pending .-> Hosted[Proposed Sites hosting]
-  Hosted -. Requires durable state and real authentication for production .-> Data[Future persistent service]
+  Source --> Export[Reviewed static build / fresh public history]
+  Export --> Pages[Public GitHub Pages]
+  Pages --> BrowserDemo[Browser engine / per-tab memory]
+  Runtime -. Future pilot requires durability and real authentication .-> Data[Future persistent service]
 ```
 
-No public deployment is claimed. Generated Worker build is a packaging artifact, not evidence of production service reliability.
+The [public GitHub Pages demo](https://phlppgdfry.github.io/skillsbridge-showcase/) is deployed and anonymously verified as a browser-only simulation. It does not execute the Worker/API or use server cookies. The separately tested Worker build remains a local packaging artifact, not evidence of a hosted backend or production service reliability. [Public runtime scope](../showcase/github-pages-demo.md).
