@@ -1,10 +1,10 @@
 {
   "kind": "Self-verified local automated test execution; synthetic portfolio scope",
   "status": "passed",
-  "checkedAt": "2026-11-23T02:03:57.671Z",
+  "checkedAt": "2026-11-23T02:16:08.360Z",
   "commit": "a1936d7716877316a33b9212d992b5971094370c",
   "workingTreeDirty": true,
-  "sourceFingerprint": "aa41d4f8e7ada0859a6de94081fb7a37501bdf19f41a7cbaf3c9b76fc06247e4",
+  "sourceFingerprint": "509b8abba85db2958f420f2fe6bf219fc8c9d8a094d301c26619baff0a8cdfd9",
   "runtime": {
     "node": "v24.22.2",
     "platform": "darwin"
@@ -14,222 +14,222 @@
     {
       "name": "API contract: validates requests, enforces origin, returns validated states and isolates sessions",
       "status": "passed",
-      "durationMs": 70.35237499999994
+      "durationMs": 54.43866600000001
     },
     {
       "name": "taxonomy endpoint rejects arbitrary URLs and modes and serves a validated offline reference",
       "status": "passed",
-      "durationMs": 1.7167499999999336
+      "durationMs": 2.2434169999999654
     },
     {
       "name": "rejects oversized chunked and multibyte bodies before full consumption without changing evidence",
       "status": "passed",
-      "durationMs": 1.0774999999999864
+      "durationMs": 1.1005420000000186
     },
     {
       "name": "bounds anonymous session allocation and returns an explicit capacity error without sharing another session",
       "status": "passed",
-      "durationMs": 19.003458000000023
+      "durationMs": 12.06654199999997
     },
     {
       "name": "static public transport isolates tabs, uses the real engine, denies unauthorized action and resets",
       "status": "passed",
-      "durationMs": 51.537958
+      "durationMs": 27.07454100000001
     },
     {
       "name": "static public transport never represents a live taxonomy request as a real connection",
       "status": "passed",
-      "durationMs": 61.34675000000004
+      "durationMs": 1.1299579999999878
     },
     {
       "name": "keeps approved JSON and Markdown in the library and sends unpublished source references to accessible verification evidence",
       "status": "passed",
-      "durationMs": 1.3921250000000214
+      "durationMs": 1.3192499999999967
     },
     {
       "name": "preserves external links and fragments while rejecting unsupported schemes and network-relative links",
       "status": "passed",
-      "durationMs": 0.16541700000001924
+      "durationMs": 0.1565000000000083
     },
     {
       "name": "exports only approved artifacts; career and feedback categories stay private even if listed",
       "status": "passed",
-      "durationMs": 14.822333000000015
+      "durationMs": 10.729375000000005
     },
     {
       "name": "fails closed on stale unapproved public files before rewriting the client index",
       "status": "passed",
-      "durationMs": 7.930082999999968
+      "durationMs": 6.315666999999991
     },
     {
       "name": "Evidence → approved synchronization normalizes evidence, maps explicit identity and preserves provenance without automatic approval",
       "status": "passed",
-      "durationMs": 5.952457999999979
+      "durationMs": 3.2168340000000057
     },
     {
       "name": "Evidence → approved synchronization writes once after current approval and subsequent sync is a no-op",
       "status": "passed",
-      "durationMs": 0.8946250000000191
+      "durationMs": 0.7740419999999801
     },
     {
       "name": "Evidence → approved synchronization rejects weak evidence and never writes it",
       "status": "passed",
-      "durationMs": 0.3072920000000181
+      "durationMs": 0.2847080000000233
     },
     {
       "name": "Evidence → approved synchronization A: duplicate events yield one suggestion and one destination write",
       "status": "passed",
-      "durationMs": 0.3037500000000364
+      "durationMs": 0.3211250000000234
     },
     {
       "name": "Evidence → approved synchronization B: respects Retry-After, exponential backoff and a maximum of three attempts",
       "status": "passed",
-      "durationMs": 0.31270799999998644
+      "durationMs": 0.2994170000000054
     },
     {
       "name": "Evidence → approved synchronization C: unresolved identity blocks approval and sync, explicit resolution reopens review",
       "status": "passed",
-      "durationMs": 0.7118749999999636
+      "durationMs": 0.7032080000000178
     },
     {
       "name": "Evidence → approved synchronization D: a low score is a suggestion requiring review, never automatic competency",
       "status": "passed",
-      "durationMs": 0.1678749999999809
+      "durationMs": 0.15379100000001245
     },
     {
       "name": "Evidence → approved synchronization E: failed work is retained and recovers once without duplicate writes",
       "status": "passed",
-      "durationMs": 0.5166249999999764
+      "durationMs": 0.5047500000000014
     },
     {
       "name": "Evidence → approved synchronization F: unsupported taxonomy blocks both approval and writes",
       "status": "passed",
-      "durationMs": 0.2868339999999989
+      "durationMs": 0.2520419999999888
     },
     {
       "name": "Evidence → approved synchronization G: viewer cannot approve, reject, synchronize or resolve identity, and denials are audited",
       "status": "passed",
-      "durationMs": 0.4928750000000264
+      "durationMs": 0.4667910000000006
     },
     {
       "name": "Evidence → approved synchronization H: changed evidence invalidates approval and old reviewer revision cannot be replayed",
       "status": "passed",
-      "durationMs": 0.2528750000000173
+      "durationMs": 0.2384580000000085
     },
     {
       "name": "Evidence → approved synchronization rejects conflicting same-version content and out-of-order source versions",
       "status": "passed",
-      "durationMs": 0.21595800000000054
+      "durationMs": 0.19283400000000483
     },
     {
       "name": "Evidence → approved synchronization keeps ordered audit sequence and calculates empty and populated metrics from state",
       "status": "passed",
-      "durationMs": 11.765875000000051
+      "durationMs": 4.6432909999999765
     },
     {
       "name": "Evidence → approved synchronization resets all evidence, writes, retries and metrics in the current session",
       "status": "passed",
-      "durationMs": 0.7942500000000337
+      "durationMs": 0.26291599999998994
     },
     {
       "name": "Evidence → approved synchronization validates bounded contracts and rejects unexpected fields",
       "status": "passed",
-      "durationMs": 0.9038750000000277
+      "durationMs": 0.32037500000001273
     },
     {
       "name": "Evidence → approved synchronization runs deterministic stale and unauthorized injectors reproducibly",
       "status": "passed",
-      "durationMs": 0.20387499999998226
+      "durationMs": 0.14441700000000424
     },
     {
       "name": "keeps recovery metrics scoped to the current evidence revision",
       "status": "passed",
-      "durationMs": 0.2912910000000011
+      "durationMs": 0.19966700000000515
     },
     {
       "name": "recorded mode performs no external request and does not masquerade as live",
       "status": "passed",
-      "durationMs": 4.487458000000004
+      "durationMs": 3.611707999999993
     },
     {
       "name": "live contract is fixed, schema-validated, cached and coalesced; it cannot authorize a mapping",
       "status": "passed",
-      "durationMs": 61.59608300000002
+      "durationMs": 63.86454199999997
     },
     {
       "name": "HTTP 429 returns explicit recorded fallback and respects the cooldown",
       "status": "passed",
-      "durationMs": 0.8576669999999922
+      "durationMs": 0.9299170000000458
     },
     {
       "name": "HTTP 503 returns explicit recorded fallback and respects the cooldown",
       "status": "passed",
-      "durationMs": 0.28820799999999736
+      "durationMs": 0.28716600000001336
     },
     {
       "name": "rejects contract drift without changing the recorded reference",
       "status": "passed",
-      "durationMs": 1.1405419999999822
+      "durationMs": 0.6413750000000391
     },
     {
       "name": "rejects contract drift without changing the recorded reference",
       "status": "passed",
-      "durationMs": 0.36099999999999
+      "durationMs": 0.33583300000003646
     },
     {
       "name": "rejects contract drift without changing the recorded reference",
       "status": "passed",
-      "durationMs": 0.23216600000000653
+      "durationMs": 0.2156659999999988
     },
     {
       "name": "rejects invalid JSON, unexpected types, redirects and oversized responses safely",
       "status": "passed",
-      "durationMs": 1.0785410000000297
+      "durationMs": 0.9526250000000118
     },
     {
       "name": "aborts a slow provider and uses the recorded fallback",
       "status": "passed",
-      "durationMs": 2.1258339999999976
+      "durationMs": 2.016958000000045
     },
     {
       "name": "records reproducible scenario results from executed transitions",
       "status": "passed",
-      "durationMs": 27.571041999999977
+      "durationMs": 13.986874999999998
     },
     {
       "name": "OpenAPI contract is structurally valid and covers the actual API surfaces",
       "status": "passed",
-      "durationMs": 193.74429199999997
+      "durationMs": 95.71358399999997
     },
     {
       "name": "normalizes weights and keeps access-blocked work out of the recommended ranking",
       "status": "passed",
-      "durationMs": 1.7687080000000037
+      "durationMs": 2.2208750000000066
     },
     {
       "name": "only observed session behavior satisfies demonstration criteria; pilot prerequisites remain independent",
       "status": "passed",
-      "durationMs": 84.51475000000005
+      "durationMs": 4.257333000000017
     },
     {
       "name": "normalizes the authorized origin while blocking credentials, query data and path-based or insecure publication URLs",
       "status": "passed",
-      "durationMs": 3.218166999999994
+      "durationMs": 1.503541999999996
     },
     {
       "name": "rejects unexpected static files, private markers and public source maps rather than trusting a hidden link",
       "status": "passed",
-      "durationMs": 41.35933299999999
+      "durationMs": 11.070999999999998
     },
     {
       "name": "blocks changed approved assets and a Worker configured to expose server output",
       "status": "passed",
-      "durationMs": 16.492624999999975
+      "durationMs": 11.368167
     },
     {
       "name": "copies only hash-reviewed named media and refuses stale or changed source output",
       "status": "passed",
-      "durationMs": 18.90908300000001
+      "durationMs": 11.444250000000011
     }
   ],
   "limitations": [
